@@ -1,0 +1,15 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+    {% for quiz_attempt in quiz_attempts %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ quiz_attempt.user.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ quiz_attempt.user }}</a>
+            </div>
+            <h2><a class="article-title" href="{% url 'quiz-user-curr-attempt' quiz_attempt.quiz.pk %}">{{ quiz_attempt.quiz.title }}</a></h2>
+              <p>Last Score: {{quiz_attempt.score}}<br> Attempt no: {{quiz_attempt.no_of_attempts}}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
