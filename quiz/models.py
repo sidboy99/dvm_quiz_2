@@ -65,3 +65,6 @@ def question_options_list(quiz):
     return list(map(lambda u, v: u.que + '<br>' + v, questions_list, options_list))
     #adds two strings, the question statement and the joint options string
 
+
+
+

@@ -13,19 +13,4 @@
             </div>
         </form>
     </div>
-
-    <h2>Edit your Quizzes</h2>
-    {% for quiz in quiz_list %}
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ quiz.author }}</a>
-              <small class="text-muted">{{ quiz.date_posted|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="{% url 'question-create' quiz.id 1 %}">{{ quiz.title }}</a></h2>
-             <a class ="btn btn-danger" href="{%url 'quiz-delete' quiz.id %}">Delete</a>
-          </div>
-        </article>
-    {% endfor %}
-{% endblock content %}
+{% endblock %}

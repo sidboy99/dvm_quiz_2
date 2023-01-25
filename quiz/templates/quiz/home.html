@@ -1,5 +1,21 @@
 {% extends "quiz/base.html" %}
 {% block content %}
+    {% if user.profile.user_type == 'QT' %}
+    <h2>Welcome Quiz Taker {{user.username}}</h2>
+    {% elif user.profile.user_type == 'QM' %}
+    <h2>Welcome Quiz Maker {{user.username}}</h2>
+        <div class="content-section">
+            <p>Here are your created Quizzes. You may click on a Quiz to edit it.</p>
+        </div>
+    {% else %}
+        {% if not user.is_authenticated %}
+        <h2>Welcome New User</h2>
+        <div class="content-section">
+            <p> You must Login! </p>
+        {% else %}
+            <p> Error</p>
+        {% endif %}
+    {% endif %}
     {% for quiz in quizzes %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ quiz.author.profile.image.url }}">
@@ -8,8 +24,15 @@
               <a class="mr-2" href="#">{{ quiz.author }}</a>
               <small class="text-muted">{{ quiz.date_posted|date:"F d, Y" }}</small>
             </div>
+              {% if user.profile.user_type == 'QT' %}
             <h2><a class="article-title" href="{% url 'quiz-attempt' quiz.id %}">{{ quiz.title }}</a></h2>
+              {% else %}
+            <h2><a class="article-title" href="{% url 'question-create' quiz.id 1 %}">{{ quiz.title }}</a></h2>
+              <a class ="btn btn-danger" href="{%url 'quiz-delete' quiz.id %}">Delete</a>
+              {% endif %}
           </div>
         </article>
     {% endfor %}
+
+
 {% endblock content %}
